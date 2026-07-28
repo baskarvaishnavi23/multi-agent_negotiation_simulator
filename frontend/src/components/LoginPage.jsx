@@ -1,178 +1,115 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Zap, Eye, EyeOff, Lock, Mail, User } from 'lucide-react';
+import { Zap, Eye, EyeOff, Lock, Mail, User, Sparkles } from 'lucide-react';
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Create Account
+  const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
-  
-  // Form state
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-    confirmPassword: ''
-  });
+  const [formData, setFormData] = useState({ name: '', email: '', password: '', confirmPassword: '' });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // In a real application, this is where you would call your FastAPI auth endpoint
-    console.log("Form Submitted:", formData);
-    
-    // REDIRECT TO HOME PAGE (Dashboard)
     navigate('/home');
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0E14] flex items-center justify-center p-4">
+    <div className="min-h-screen bg-[#09090b] flex items-center justify-center p-4 relative overflow-hidden">
       
-      <div className="w-full max-w-md bg-[#11161F] border border-[#2A2D36] rounded-xl shadow-2xl p-8">
+      {/* Ambient Background Glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-purple-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+      {/* Login Card */}
+      <div className="relative w-full max-w-md glass-panel p-8 md:p-10 z-10">
         
-        {/* Header / Logo */}
-        <div className="flex items-center justify-center gap-2 mb-6 text-white font-bold text-2xl">
-          <div className="bg-purple-600 p-1.5 rounded-lg">
-            <Zap size={20} className="text-white fill-current" />
+        {/* Logo */}
+        <div className="flex items-center justify-center gap-2 mb-8">
+          <div className="bg-gradient-to-br from-purple-500 to-indigo-600 p-2 rounded-xl shadow-lg shadow-purple-500/20">
+            <Zap size={24} className="text-white" />
           </div>
-          NegotiateAI
-          <span className="text-[10px] font-medium text-gray-500 mt-2 ml-1">TECHNICAL INTELLIGENCE</span>
+          <h1 className="text-2xl font-bold text-white tracking-tight">Negotiate<span className="gradient-text">AI</span></h1>
         </div>
 
         {/* Title */}
         <h2 className="text-2xl font-semibold text-white mb-1 text-center">
-          {isLogin ? 'Welcome back' : 'Create account'}
+          {isLogin ? 'Welcome Back' : 'Join the Simulator'}
         </h2>
         <p className="text-sm text-gray-400 mb-8 text-center">
-          {isLogin 
-            ? 'Sign in to access your negotiation simulation history.' 
-            : 'Initialize your secure simulation environment.'}
+          {isLogin ? 'Access your strategic negotiation dashboard.' : 'Create your secure intelligence environment.'}
         </p>
 
         {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           
-          {/* Name Field (Only for Create Account mode) */}
           {!isLogin && (
-            <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Name</label>
-              <div className="relative">
-                <User size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-                <input 
-                  type="text" 
-                  name="name"
-                  placeholder="John Doe"
-                  className="w-full bg-[#0B0E14] border border-[#2A2D36] rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
-                  value={formData.name}
-                  onChange={handleChange}
-                />
-              </div>
+            <div className="relative group">
+              <User size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
+              <input 
+                type="text" name="name" placeholder="Full Name"
+                className="w-full bg-black/40 border border-white/10 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                value={formData.name} onChange={handleChange}
+              />
             </div>
           )}
 
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Email</label>
-            <div className="relative">
-              <Mail size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input 
-                type="email" 
-                name="email"
-                placeholder="name@company.ai"
-                className="w-full bg-[#0B0E14] border border-[#2A2D36] rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
-                value={formData.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+          <div className="relative group">
+            <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
+            <input 
+              type="email" name="email" placeholder="name@company.ai"
+              className="w-full bg-black/40 border border-white/10 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              value={formData.email} onChange={handleChange} required
+            />
           </div>
 
-          {/* Password Field */}
-          <div>
-            <label className="block text-sm text-gray-400 mb-1.5">Password</label>
-            <div className="relative">
-              <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input 
-                type={showPassword ? "text" : "password"}
-                name="password"
-                placeholder="••••••••"
-                className="w-full bg-[#0B0E14] border border-[#2A2D36] rounded-lg pl-10 pr-10 py-3 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
-                value={formData.password}
-                onChange={handleChange}
-                required
-              />
-              <button 
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition"
-              >
-                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-              </button>
-            </div>
+          <div className="relative group">
+            <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
+            <input 
+              type={showPassword ? "text" : "password"} name="password" placeholder="••••••••"
+              className="w-full bg-black/40 border border-white/10 rounded-xl pl-12 pr-12 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+              value={formData.password} onChange={handleChange} required
+            />
+            <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition">
+              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+            </button>
           </div>
 
-          {/* Confirm Password Field (Only for Create Account mode) */}
           {!isLogin && (
-            <div>
-              <label className="block text-sm text-gray-400 mb-1.5">Confirm Password</label>
-              <div className="relative">
-                <Lock size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-                <input 
-                  type={showPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  placeholder="••••••••"
-                  className="w-full bg-[#0B0E14] border border-[#2A2D36] rounded-lg pl-10 pr-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
-                  required={!isLogin}
-                />
-              </div>
+            <div className="relative group">
+              <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-purple-400 transition-colors" />
+              <input 
+                type={showPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password"
+                className="w-full bg-black/40 border border-white/10 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white placeholder:text-gray-600 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                value={formData.confirmPassword} onChange={handleChange} required={!isLogin}
+              />
             </div>
           )}
 
-          {/* Submit Button */}
-          <button 
-            type="submit" 
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition duration-200 mt-2"
-          >
-            {isLogin ? 'Log In' : 'Create account'}
+          <button type="submit" className="w-full glow-btn mt-4 group">
+            <span className="flex items-center justify-center gap-2">
+              {isLogin ? 'Log In' : 'Create Account'}
+              <Sparkles size={18} className="group-hover:rotate-12 transition-transform" />
+            </span>
           </button>
-
         </form>
 
         {/* Divider */}
-        <div className="relative my-6">
-          <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-[#2A2D36]"></div>
-          </div>
+        <div className="relative my-8">
+          <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
+          <div className="relative flex justify-center text-xs"><span className="px-4 bg-[#1e1e24]/60 text-gray-500">OR</span></div>
         </div>
 
-        {/* Toggle Mode (Login vs Create Account) */}
+        {/* Toggle Mode */}
         <div className="text-center text-sm text-gray-400">
-          {isLogin ? "Don't have an account?" : "Already have an account?"}{' '}
-          <button 
-            onClick={() => setIsLogin(!isLogin)} 
-            className="text-purple-400 hover:text-purple-300 underline decoration-purple-400/30 underline-offset-4 transition"
-          >
-            {isLogin ? 'Create one' : 'Log in'}
+          {isLogin ? "New to the simulation?" : "Already an expert?"}{' '}
+          <button onClick={() => setIsLogin(!isLogin)} className="text-purple-400 hover:text-purple-300 underline decoration-purple-400/30 underline-offset-4 transition font-medium">
+            {isLogin ? 'Sign up' : 'Log in'}
           </button>
         </div>
-
-        {/* Privacy & Terms (Kept subtle) */}
-        <div className="flex justify-center gap-6 mt-6 text-[10px] text-gray-600">
-          <span className="cursor-pointer hover:text-gray-400 transition">Privacy Policy</span>
-          <span className="text-gray-700">•</span>
-          <span className="cursor-pointer hover:text-gray-400 transition">Terms of Service</span>
-        </div>
-
-        {/* <--- REMOVED THE SYSTEM READY FOOTER HERE ---> */}
-
       </div>
     </div>
   );
 };
-
 export default LoginPage;
