@@ -22,20 +22,15 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // In a real application, this is where you would call your FastAPI auth endpoint
-    // e.g., POST /auth/login or POST /auth/register
     console.log("Form Submitted:", formData);
     
-    // Redirect to home page after successful login/signup
-    navigate('/');
+    // REDIRECT TO HOME PAGE (Dashboard)
+    navigate('/home');
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0E14] flex items-center justify-center p-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#0B0E14] flex items-center justify-center p-4">
       
-      {/* Background Decor Dots (Optional styling effect) */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-900/10 rounded-full blur-3xl -z-10"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-900/10 rounded-full blur-3xl -z-10"></div>
-
       <div className="w-full max-w-md bg-[#11161F] border border-[#2A2D36] rounded-xl shadow-2xl p-8">
         
         {/* Header / Logo */}
@@ -48,10 +43,10 @@ const LoginPage = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-semibold text-white mb-1">
+        <h2 className="text-2xl font-semibold text-white mb-1 text-center">
           {isLogin ? 'Welcome back' : 'Create account'}
         </h2>
-        <p className="text-sm text-gray-400 mb-8">
+        <p className="text-sm text-gray-400 mb-8 text-center">
           {isLogin 
             ? 'Sign in to access your negotiation simulation history.' 
             : 'Initialize your secure simulation environment.'}
@@ -166,22 +161,14 @@ const LoginPage = () => {
           </button>
         </div>
 
-        {/* Footer Links */}
+        {/* Privacy & Terms (Kept subtle) */}
         <div className="flex justify-center gap-6 mt-6 text-[10px] text-gray-600">
           <span className="cursor-pointer hover:text-gray-400 transition">Privacy Policy</span>
           <span className="text-gray-700">•</span>
           <span className="cursor-pointer hover:text-gray-400 transition">Terms of Service</span>
         </div>
 
-        {/* System Status Badge (Matches screenshot bottom left) */}
-        <div className="mt-8 flex items-center justify-center gap-2 text-[10px] text-gray-600 border-t border-[#2A2D36] pt-4">
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
-            SYSTEM: READY
-          </div>
-          <span className="text-gray-700">•</span>
-          <span>v1.0.42-STABLE</span>
-        </div>
+        {/* <--- REMOVED THE SYSTEM READY FOOTER HERE ---> */}
 
       </div>
     </div>
